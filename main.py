@@ -1,21 +1,27 @@
 from langchain_core.prompts import ChatPromptTemplate
+from langchain.agents import create_tool_calling_agent, AgentExecutor
 from langchain_groq import ChatGroq
 from dotenv import load_dotenv
-from langchain.agents import create_tool_calling_agent, AgentExecutor
-
+from custom_tools.leetcode import get_leetcode_statistics
+from extract import get_resume_text
 import os
-
 load_dotenv()
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
-llm = ChatGroq(temperature=0, groq_api_key=GROQ_API_KEY, model_name="llama-3.1-8b-instant")
+prompt = ChatPromptTemplate.from_messages([
+    ("system", "you're a Resume Analyzer"),
+    ("human", "{input}"),
+    ("placeholder", "{agent_scratchpad}"),
+])
 
-system = "You are a helpful assistant."
-human = "Explain the importance of low latency LLMs in short"
-# human = "{text}"
-prompt = ChatPromptTemplate.from_messages([("system", system), ("human", human)])
-#
-# chain = prompt | llm
-# print(chain.invoke({"text": "Explain the importance of low latency LLMs in short"}))
+tools = [get_leetcode_statistics]
 
-# create_tool_calling_agent(llm, tools, prompt)
+llm = ChatGroq(temperature=0, groq_api_key=GROQ_API_KEY, model_name="llama3-groq-8b-8192-tool-use-preview")
+
+agent = create_tool_calling_agent(llm, tools, prompt)
+agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
+
+ResumeText = get_resume_text("Resume.pdf")
+
+agent_executor.invoke({"input": "Give me the statistics for this leetcode account : OmGujarathi"})
+
