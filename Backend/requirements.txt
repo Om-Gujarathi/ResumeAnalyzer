@@ -2,3 +2,5 @@ langchain
 langchain-groq
 python-dotenv
 PyPDF2
+linkedin-api
+json
