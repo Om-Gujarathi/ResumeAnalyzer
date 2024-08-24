@@ -5,10 +5,16 @@ services:
     build:
       context: ./Backend
     ports:
-      - "5000:5000"  # Map port 5000 on the host to port 5000 in the container
+      - "5000:5000"  
 
   node-app:
     build:
       context: ./leetcode-api
     ports:
-      - "3000:3000"  # Map port 3000 on the host to port 3000 in the container
+      - "3000:3000"  
+  
+  react-app:
+    build:
+      context: ./frontend
+    ports:
+      - "5173:5173"  
