@@ -20,7 +20,7 @@ const Navbar = () => {
         {/* Navigation Links */}
         <div className="flex space-x-8">
           <a
-            href="/home"
+            href="/"
             className="font-semibold text-orange-700 hover:text-orange-900 transition-colors duration-300 hover:underline py-2"
           >
             Home
@@ -54,7 +54,7 @@ const Navbar = () => {
             className="w-10 h-10 rounded-full border-2 border-orange-700 transition-transform transform hover:scale-110 duration-300"
           />
           <div className="text-orange-700 hover:text-orange-900 font-semibold">
-            John Doe
+            Guest
           </div>
         </div>
       </div>

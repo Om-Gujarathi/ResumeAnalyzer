@@ -4,39 +4,37 @@ const Upload = () => {
   const [projectCount, setProjectCount] = useState(0);
   const [projectLinks, setProjectLinks] = useState([]);
   const [resume, setResume] = useState(null);
+  const [jdFile, setJdFile] = useState(null);
+  const [jdText, setJdText] = useState('');
 
-  // Handle changes in the project count
   const handleProjectCountChange = (e) => {
     const count = parseInt(e.target.value, 10);
     setProjectCount(count);
     setProjectLinks(new Array(count).fill(''));
   };
 
-  // Handle changes in the project links
   const handleProjectLinkChange = (index, value) => {
     const newLinks = [...projectLinks];
     newLinks[index] = value;
     setProjectLinks(newLinks);
   };
 
-  // Handle file upload for resume
   const handleResumeUpload = (e) => {
     setResume(e.target.files[0]);
   };
 
-  // Trigger file input click programmatically
   const handleBoxClick = () => {
     document.getElementById('resume-upload-input').click();
   };
 
-  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Implement your form submission logic here
     console.log({
       projectCount,
       projectLinks,
       resume,
+      jdFile,
+      jdText,
     });
   };
 
@@ -139,6 +137,49 @@ const Upload = () => {
           )}
         </div>
       </div>
+
+      {/* Job Description Section */}
+      <div className="bg-white p-8 rounded-lg shadow-md border border-orange-200 mb-8">
+          <h2 className="text-2xl font-semibold text-orange-600 mb-2">Job Description Upload or Text Entry</h2>
+          <div className="w-full border-b-4 border-orange-300 mb-4"></div>
+          <div className="grid grid-cols-1 gap-6">
+            {/* JD File Upload */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Upload JD Document</label>
+              <div 
+                onClick={() => document.getElementById('jd-upload-input').click()} 
+                className="w-full h-40 flex items-center justify-center border-2 border-dashed border-orange-300 rounded-md bg-orange-100 cursor-pointer hover:bg-orange-200 transition">
+                {jdFile ? (
+                  <p className="text-gray-700">{jdFile.name}</p>
+                ) : (
+                  <p className="text-gray-500">Click here to upload JD document</p>
+                )}
+              </div>
+              <input
+                type="file"
+                id="jd-upload-input"
+                onChange={(e) => setJdFile(e.target.files[0])}
+                className="hidden"
+                accept=".pdf,.doc,.docx"
+              />
+              <p className="mt-2 text-sm text-gray-500">
+                Accepted formats: PDF, DOC, DOCX. Max file size: 5MB.
+              </p>
+            </div>
+
+            {/* JD Text Entry */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Or Enter JD Text</label>
+              <textarea
+                value={jdText}
+                onChange={(e) => setJdText(e.target.value)}
+                rows="5"
+                className="w-full px-4 py-2 border border-orange-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent"
+                placeholder="Enter job description text here..."
+              />
+            </div>
+          </div>
+        </div>
 
       {/* Resume Upload Section */}
       <div className="bg-white p-8 rounded-lg shadow-md border border-orange-200 mb-8">
