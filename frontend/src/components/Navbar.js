@@ -18,7 +18,7 @@ const Navbar = () => {
         </div>
 
         {/* Navigation Links */}
-        <div className="flex space-x-8">
+        <div className="md:flex space-x-8 hidden">
           <a
             href="/"
             className="font-semibold text-orange-700 hover:text-orange-900 transition-colors duration-300 hover:underline py-2"

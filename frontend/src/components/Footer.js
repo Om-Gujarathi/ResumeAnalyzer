@@ -3,10 +3,10 @@ import React from 'react';
 const Footer = () => {
   return (
     <footer className="bg-orange-200 p-6 shadow-inner">
-      <div className="container mx-auto flex justify-between items-center">
+      <div className="container mx-auto flex flex-wrap justify-between items-center">
         
         {/* Footer Logo and Name */}
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-3 mb-4 sm:mb-0">
           <img
             src="https://static.vecteezy.com/system/resources/previews/030/763/734/non_2x/3d-cv-resume-icon-png.png"
             alt="Company Logo"
@@ -18,7 +18,7 @@ const Footer = () => {
         </div>
 
         {/* Footer Navigation Links */}
-        <div className="flex space-x-8">
+        <div className="flex flex-wrap justify-center space-x-4 sm:space-x-8 mb-4 sm:mb-0">
           <a href="/about" className="text-orange-700 hover:text-orange-900 transition-colors duration-300">
             About Us
           </a>
@@ -34,7 +34,7 @@ const Footer = () => {
         </div>
 
         {/* Social Media Links */}
-        <div className="flex items-center space-x-4">
+        <div className="flex justify-center items-center space-x-4">
           <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
             <img
               src="https://img.icons8.com/fluent/48/000000/twitter.png"
