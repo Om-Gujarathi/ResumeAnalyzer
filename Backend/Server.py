@@ -10,6 +10,10 @@ UPLOAD_FOLDER = 'uploads'
 if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
 
+@app.route('/', methods=['GET'])
+def home():
+    return "<h1> hello World</h1>", 200
+
 
 @app.route('/api/submit', methods=['POST'])
 def submit():
