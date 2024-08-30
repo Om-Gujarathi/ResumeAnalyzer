@@ -84,19 +84,128 @@ const Upload = () => {
   };
 
   return (
-    <div className='bg-white'>
+    <div className="bg-white">
       <div className="max-w-5xl mx-auto p-8 min-h-screen">
+        {/* Resume Upload Section */}
+        <div className="bg-white p-8 rounded-lg shadow-md border border-orange-200 mb-8">
+          <h2 className="text-2xl font-semibold text-orange-600 mb-2">
+            Upload Resume
+          </h2>
+          <div className="w-full border-b-4 border-orange-300 mb-4"></div>
+          <div
+            onClick={() => handleBoxClick("resume-upload-input")}
+            className="w-full h-40 flex items-center justify-center border-2 border-dashed border-orange-300 rounded-md bg-orange-100 cursor-pointer hover:bg-orange-200 transition"
+          >
+            {resume ? (
+              <p className="text-gray-700">{resume.name}</p>
+            ) : (
+              <p className="text-gray-500">Click to upload your resume</p>
+            )}
+          </div>
+          <input
+            id="resume-upload-input"
+            type="file"
+            accept=".pdf,.doc,.docx"
+            onChange={handleResumeUpload}
+            className="hidden"
+          />
+        </div>
+
+        {/* Job Description Section */}
+        <div className="bg-white p-8 rounded-lg shadow-md border border-orange-200 mb-8">
+          <h2 className="text-2xl font-semibold text-orange-600 mb-2">
+            Job Description
+          </h2>
+          <div className="w-full border-b-4 border-orange-300 mb-4"></div>
+          <div className="grid grid-cols-1 gap-6">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Choose Input Method
+              </label>
+              <div className="flex gap-4">
+                <button
+                  type="button"
+                  onClick={() => setJdOption("text")}
+                  className={`px-4 py-2 rounded-md ${
+                    jdOption === "text"
+                      ? "bg-orange-500 text-white"
+                      : "bg-gray-200 text-gray-700"
+                  } focus:outline-none`}
+                >
+                  Text
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setJdOption("file")}
+                  className={`px-4 py-2 rounded-md ${
+                    jdOption === "file"
+                      ? "bg-orange-500 text-white"
+                      : "bg-gray-200 text-gray-700"
+                  } focus:outline-none`}
+                >
+                  File
+                </button>
+              </div>
+            </div>
+
+            {jdOption === "file" && (
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Upload JD Document
+                </label>
+                <div
+                  onClick={() => handleBoxClick("jd-upload-input")}
+                  className="w-full h-40 flex items-center justify-center border-2 border-dashed border-orange-300 rounded-md bg-orange-100 cursor-pointer hover:bg-orange-200 transition"
+                >
+                  {jdFile ? (
+                    <p className="text-gray-700">{jdFile.name}</p>
+                  ) : (
+                    <p className="text-gray-500">Click to upload a file</p>
+                  )}
+                </div>
+                <input
+                  id="jd-upload-input"
+                  type="file"
+                  accept=".pdf,.doc,.docx"
+                  onChange={handleJdFileUpload}
+                  className="hidden"
+                />
+              </div>
+            )}
+
+            {jdOption === "text" && (
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Enter Job Description
+                </label>
+                <textarea
+                  value={jdText}
+                  onChange={(e) => setJdText(e.target.value)}
+                  rows="6"
+                  className="w-full px-4 py-2 border border-orange-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent"
+                  placeholder="Enter job description here..."
+                />
+              </div>
+            )}
+          </div>
+        </div>
 
         {/* Profile Links Section */}
         <div className="bg-white p-8 rounded-lg shadow-md border border-orange-200 mb-8">
-          <h2 className="text-2xl font-semibold text-orange-600 mb-2">Profile Links</h2>
+          <h2 className="text-2xl font-semibold text-orange-600 mb-2">
+            Profile Links
+          </h2>
           <div className="w-full border-b-4 border-orange-300 mb-4"></div>
           <form>
             <div className="grid grid-cols-1 justify-center items-center gap-6">
               <div>
                 <label className="flex justify-start items-center gap-2 text-md font-semibold text-gray-700 mb-1">
-                  <img src='https://upload.wikimedia.org/wikipedia/commons/6/65/HackerRank_logo.png' className='w-10 h-10 object-cover' alt='HackerRank'/>
-                  HackerRank Linkcd 
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/6/65/HackerRank_logo.png"
+                    className="w-10 h-10 object-cover"
+                    alt="HackerRank"
+                  />
+                  HackerRank Linkcd
                 </label>
                 <input
                   type="url"
@@ -109,7 +218,11 @@ const Upload = () => {
               </div>
               <div>
                 <label className="flex justify-start items-center gap-2 text-md font-semibold text-gray-700 mb-1">
-                  <img src='https://upload.wikimedia.org/wikipedia/commons/1/19/LeetCode_logo_black.png' className='w-8 h-8 object-cover' alt='LeetCode'/>
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/1/19/LeetCode_logo_black.png"
+                    className="w-8 h-8 object-cover"
+                    alt="LeetCode"
+                  />
                   LeetCode Link
                 </label>
                 <input
@@ -123,7 +236,11 @@ const Upload = () => {
               </div>
               <div>
                 <label className="flex justify-start items-center gap-2 text-md font-semibold text-gray-700 mb-1">
-                  <img src='https://img.icons8.com/fluent/48/000000/linkedin.png' className='w-8 h-8 object-cover' alt='LinkedIn'/>
+                  <img
+                    src="https://img.icons8.com/fluent/48/000000/linkedin.png"
+                    className="w-8 h-8 object-cover"
+                    alt="LinkedIn"
+                  />
                   LinkedIn Link
                 </label>
                 <input
@@ -137,7 +254,11 @@ const Upload = () => {
               </div>
               <div>
                 <label className="flex justify-start items-center gap-2 text-md font-semibold text-gray-700 mb-1">
-                  <img src='https://img.icons8.com/fluent/48/000000/github.png' className='w-8 h-8 object-cover' alt='GitHub'/>
+                  <img
+                    src="https://img.icons8.com/fluent/48/000000/github.png"
+                    className="w-8 h-8 object-cover"
+                    alt="GitHub"
+                  />
                   GitHub Link
                 </label>
                 <input
@@ -154,12 +275,16 @@ const Upload = () => {
         </div>
 
         {/* Project Information Section */}
-        <div className="bg-white p-8 rounded-lg shadow-md border border-orange-200 mb-8">
-          <h2 className="text-2xl font-semibold text-orange-600 mb-2">Project Information</h2>
+        {/* <div className="bg-white p-8 rounded-lg shadow-md border border-orange-200 mb-8">
+          <h2 className="text-2xl font-semibold text-orange-600 mb-2">
+            Project Information
+          </h2>
           <div className="w-full border-b-4 border-orange-300 mb-4"></div>
           <div className="grid grid-cols-1 gap-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Number of Projects (Max 4)</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Number of Projects (Max 4)
+              </label>
               <select
                 value={projectCount}
                 onChange={handleProjectCountChange}
@@ -183,7 +308,9 @@ const Upload = () => {
                     <input
                       type="url"
                       value={link}
-                      onChange={(e) => handleProjectLinkChange(index, e.target.value)}
+                      onChange={(e) =>
+                        handleProjectLinkChange(index, e.target.value)
+                      }
                       className="w-full px-4 py-2 border border-orange-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent"
                       placeholder={`https://github.com/yourproject${index + 1}`}
                     />
@@ -192,91 +319,7 @@ const Upload = () => {
               </div>
             )}
           </div>
-        </div>
-
-        {/* Job Description Section */}
-        <div className="bg-white p-8 rounded-lg shadow-md border border-orange-200 mb-8">
-          <h2 className="text-2xl font-semibold text-orange-600 mb-2">Job Description</h2>
-          <div className="w-full border-b-4 border-orange-300 mb-4"></div>
-          <div className="grid grid-cols-1 gap-6">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Choose Input Method</label>
-              <div className="flex gap-4">
-                <button
-                  type="button"
-                  onClick={() => setJdOption('text')}
-                  className={`px-4 py-2 rounded-md ${jdOption === 'text' ? 'bg-orange-500 text-white' : 'bg-gray-200 text-gray-700'} focus:outline-none`}
-                >
-                  Text
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setJdOption('file')}
-                  className={`px-4 py-2 rounded-md ${jdOption === 'file' ? 'bg-orange-500 text-white' : 'bg-gray-200 text-gray-700'} focus:outline-none`}
-                >
-                  File
-                </button>
-              </div>
-            </div>
-
-            {jdOption === 'file' && (
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Upload JD Document</label>
-                <div 
-                  onClick={() => handleBoxClick('jd-upload-input')} 
-                  className="w-full h-40 flex items-center justify-center border-2 border-dashed border-orange-300 rounded-md bg-orange-100 cursor-pointer hover:bg-orange-200 transition">
-                  {jdFile ? (
-                    <p className="text-gray-700">{jdFile.name}</p>
-                  ) : (
-                    <p className="text-gray-500">Click to upload a file</p>
-                  )}
-                </div>
-                <input
-                  id="jd-upload-input"
-                  type="file"
-                  accept=".pdf,.doc,.docx"
-                  onChange={handleJdFileUpload}
-                  className="hidden"
-                />
-              </div>
-            )}
-
-            {jdOption === 'text' && (
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Enter Job Description</label>
-                <textarea
-                  value={jdText}
-                  onChange={(e) => setJdText(e.target.value)}
-                  rows="6"
-                  className="w-full px-4 py-2 border border-orange-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent"
-                  placeholder="Enter job description here..."
-                />
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* Resume Upload Section */}
-        <div className="bg-white p-8 rounded-lg shadow-md border border-orange-200 mb-8">
-          <h2 className="text-2xl font-semibold text-orange-600 mb-2">Upload Resume</h2>
-          <div className="w-full border-b-4 border-orange-300 mb-4"></div>
-          <div 
-            onClick={() => handleBoxClick('resume-upload-input')} 
-            className="w-full h-40 flex items-center justify-center border-2 border-dashed border-orange-300 rounded-md bg-orange-100 cursor-pointer hover:bg-orange-200 transition">
-            {resume ? (
-              <p className="text-gray-700">{resume.name}</p>
-            ) : (
-              <p className="text-gray-500">Click to upload your resume</p>
-            )}
-          </div>
-          <input
-            id="resume-upload-input"
-            type="file"
-            accept=".pdf,.doc,.docx"
-            onChange={handleResumeUpload}
-            className="hidden"
-          />
-        </div>
+        </div> */}
 
         {/* Submit Button */}
         <div className="flex justify-center">

@@ -3,5 +3,5 @@ langchain-groq
 python-dotenv
 PyPDF2
 linkedin-api
-Flask==2.3.3
-Flask-Cors == 4.0.1
+Flask
+Flask-Cors
