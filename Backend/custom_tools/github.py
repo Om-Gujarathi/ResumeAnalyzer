@@ -1,5 +1,8 @@
 import requests
+from langchain_core.tools import tool
 
+
+@tool
 def fetch_github_data(username):
     """
     Fetch GitHub user data and repositories by username.
@@ -28,6 +31,4 @@ def fetch_github_data(username):
 
         return {"user_info": user_info, "repositories": repositories}
     except Exception as e:
-        return {'error':str(e)}
-
-print(fetch_github_data("Om-Gujarathi"))
+        return {'error': str(e)}

@@ -1,35 +1,36 @@
 from linkedin_api import Linkedin
-import json, os
 from dotenv import load_dotenv
+import os
+from langchain_core.tools import tool
 
+# Load environment variables
 load_dotenv()
 
-# Authenticate using any Linkedin account credentials
+# Authenticate using LinkedIn credentials
 LINKEDIN_USERNAME = os.getenv("LINKEDIN_USERNAME")
 LINKEDIN_PASSWORD = os.getenv("LINKEDIN_PASSWORD")
 
 api = Linkedin(LINKEDIN_USERNAME, LINKEDIN_PASSWORD)
 
-# GET a profile
-profile = api.get_profile('omgujarathi')
 
-# GET a profile's contact info
-contact_info = api.get_profile_contact_info('omgujarathi')
+@tool
+def fetch_linkedin_account(username):
+    """Fetch LinkedIn posts and return them along with other data."""
+    try:
+        print(f"Fetching data for user: {username}")
 
-# GET 1st-degree connections of a given profile
-connections = api.get_profile_connections('omgujarathi')
+        # Fetch the latest posts
+        posts = api.get_profile_posts(username, post_count=5)
+        post_texts = []
 
-# GET the latest post from the profile
-post = api.get_profile_posts('omgujarathi', post_count=5)
+        for i, post in enumerate(posts):
+            if post.get('commentary') and post['commentary'].get('text'):
+                post_texts.append(post['commentary']['text']['text'])
+            else:
+                post_texts.append("No text content found in the post.")
 
-# Convert the post to a JSON string
-post_json = json.dumps(post, indent=4)
-
-# Extract and print the text content of the post
-for i in range(len(post)):
-    if post and post[i].get('commentary') and post[i]['commentary'].get('text'):
-        post_text = post[i]['commentary']['text']['text']
-        print("\nPost Text:", i+1)
-        print(post_text)
-    else:
-        print("No text content found in the post.")
+        # Return posts for scoring
+        return post_texts
+    except Exception as e:
+        print(f"Error fetching LinkedIn data: {e}")
+        return []
